@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
-  DTS:CreationDate="2/3/2022 3:30:23 PM"
+  DTS:CreationDate="2/3/2022 4:28:30 PM"
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DESKTOP-GAIH1NS"
   DTS:CreatorName="DESKTOP-GAIH1NS\ssaam"
-  DTS:DTSID="{D6771374-76BF-4FBE-A73B-842182270D72}"
+  DTS:DTSID="{7154F2B6-9D9A-4987-BBB8-32FF18A1341C}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="15.0.2000.170"
   DTS:LocaleID="16393"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{B7820029-0120-40B2-A448-DD6B3D7AA03B}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{29E1607B-FAFF-48C0-813A-51A7308CBF5F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[(local).ASPNET_PersonalProjects]"
       DTS:CreationName="OLEDB"
-      DTS:DTSID="{0AA2740B-DA1C-4884-AB6C-ED5B75E327EF}"
+      DTS:DTSID="{E1C6261F-9155-409B-A9E4-E6E7D3BCACF6}"
       DTS:ObjectName="(local).ASPNET_PersonalProjects">
       <DTS:ObjectData>
         <DTS:ConnectionManager
@@ -29,10 +29,10 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[BackUPDBPROJECTS]"
+      DTS:refId="Package.ConnectionManagers[BackUPconnection]"
       DTS:CreationName="ADO.NET:SQL"
-      DTS:DTSID="{DCB8E29E-78A7-46E8-AB64-8DC81C6EE21A}"
-      DTS:ObjectName="BackUPDBPROJECTS">
+      DTS:DTSID="{3854E472-DE99-4D43-8DD2-B914F2476E4E}"
+      DTS:ObjectName="BackUPconnection">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectionString="Data Source=.;Integrated Security=SSPI;Connect Timeout=30;" />
@@ -45,7 +45,7 @@
       DTS:refId="Package\Sequence Container"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
-      DTS:DTSID="{3EF5D162-F5C1-4B13-BB22-DF9686113002}"
+      DTS:DTSID="{C5BB1C80-697A-400C-87E5-ECE81A63240B}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
       DTS:ObjectName="Sequence Container">
@@ -55,7 +55,7 @@
           DTS:refId="Package\Sequence Container\Back Up Database Task"
           DTS:CreationName="Microsoft.DbMaintenanceBackupTask"
           DTS:Description="Back Up Database Task"
-          DTS:DTSID="{600DA1FB-D23A-450C-B126-737EAA226638}"
+          DTS:DTSID="{78A8B430-04D7-4233-97E7-E024F97D58B3}"
           DTS:ExecutableType="Microsoft.DbMaintenanceBackupTask"
           DTS:LocaleID="-1"
           DTS:ObjectName="Back Up Database Task"
@@ -64,7 +64,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{DCB8E29E-78A7-46E8-AB64-8DC81C6EE21A}"
+              SQLTask:Connection="{3854E472-DE99-4D43-8DD2-B914F2476E4E}"
               SQLTask:DatabaseSelectionType="4"
               SQLTask:ServerVersion="15"
               SQLTask:ExtendedLogging="True"
@@ -109,20 +109,30 @@
           DTS:refId="Package\Sequence Container\Execute SQL Task"
           DTS:CreationName="Microsoft.ExecuteSQLTask"
           DTS:Description="Execute SQL Task"
-          DTS:DTSID="{46EE65AA-583C-4821-BD5A-16F88194F1E0}"
+          DTS:DTSID="{89F64DF2-DB3E-4FE8-87BF-4B86E4FB77A7}"
           DTS:ExecutableType="Microsoft.ExecuteSQLTask"
           DTS:LocaleID="-1"
           DTS:ObjectName="Execute SQL Task"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
-              SQLTask:Connection="{0AA2740B-DA1C-4884-AB6C-ED5B75E327EF}"
+              SQLTask:Connection="{E1C6261F-9155-409B-A9E4-E6E7D3BCACF6}"
               SQLTask:SqlStatementSource="Drop table IF Exists People;&#xA;&#xA;Create Table People(&#xA;ID int Identity(1,1) Primary KEY NOT NULL,&#xA;Name nvarchar(20),&#xA;Gender nvarchar(8)&#xA;);&#xA;Insert Into People Values ('Samikshya','Female');" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{5FB40663-8578-4DB0-9C34-79758E4BD194}"
+          DTS:From="Package\Sequence Container\Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Sequence Container\Back Up Database Task" />
+      </DTS:PrecedenceConstraints>
     </DTS:Executable>
   </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
@@ -136,22 +146,56 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="164.8,41.6"
           Id="Package\Sequence Container\Execute SQL Task"
-          TopLeft="62.166653388077,2.33333522743652" />
+          TopLeft="161.533325452275,54.2000011364619" />
         <NodeLayout
           Size="190.4,41.6"
           Id="Package\Sequence Container\Back Up Database Task"
-          TopLeft="139.666650308504,65.6000023969015" />
+          TopLeft="244.03332217402,132.20000175635" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="243.933325452275,95.8000011364619">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="95.2999967217447,36.4000006198883"
+              Start="0,0"
+              End="95.2999967217447,28.9000006198883">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.2000003099442" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.2000003099442"
+                    Point2="0,18.2000003099442"
+                    Point3="4,18.2000003099442" />
+                  <mssgle:LineSegment
+                    End="91.2999967217447,18.2000003099442" />
+                  <mssgle:CubicBezierSegment
+                    Point1="91.2999967217447,18.2000003099442"
+                    Point2="95.2999967217447,18.2000003099442"
+                    Point3="95.2999967217447,22.2000003099442" />
+                  <mssgle:LineSegment
+                    End="95.2999967217447,28.9000006198883" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="335.2,162.4"
-          Size="335.2,205.6"
+          PanelSize="686.4,228.8"
+          Size="686.4,272"
           Id="Package\Sequence Container"
-          TopLeft="271.666655871604,192.400001529058" />
+          TopLeft="36.6666652096643,45.9333336983786" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
